@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/gilwitter/static/css/main.30f84ecc.css",
+    "main.js": "/gilwitter/static/js/main.aa39200d.js",
+    "index.html": "/gilwitter/index.html",
+    "main.30f84ecc.css.map": "/gilwitter/static/css/main.30f84ecc.css.map",
+    "main.aa39200d.js.map": "/gilwitter/static/js/main.aa39200d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.30f84ecc.css",
+    "static/js/main.aa39200d.js"
+  ]
+}
