@@ -12,21 +12,39 @@ function App() {
 			if (user !== null) {
 				setIsLoggedIn(true);
 				setUserObj(user);
+				// setUserObj({
+				// 	displayName: user.displayName,
+				// 	uid: user.uid,
+				// 	updateProfile: (args) => user.updateProfile(args),
+				// });
 			} else {
 				setIsLoggedIn(false);
+				setUserObj(null);
 			}
 			setInit(true);
 		});
 	}, []);
-
+	const refreshUser = async () => {
+		const user = auth.currentUser;
+		// setUserObj({
+		// 	displayName: user.displayName,
+		// 	uid: user.uid,
+		// 	updateProfile: (args) => user.updateProfile(args),
+		// });
+		setUserObj(Object.assign({}, user));
+	};
 	return (
 		<>
 			{init ? (
-				<AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+				<AppRouter
+					refreshUser={refreshUser}
+					isLoggedIn={isLoggedIn}
+					userObj={userObj}
+				/>
 			) : (
 				"Initializing..."
 			)}
-			<footer>&copy; {new Date().getFullYear()} Gwitter</footer>
+			{/* <footer>&copy; {new Date().getFullYear()} Gwitter</footer> */}
 		</>
 	);
 }
