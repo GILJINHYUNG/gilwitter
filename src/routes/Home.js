@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { dbService } from "../fbase";
+import { auth, dbService } from "../fbase";
 import { onSnapshot, query, orderBy, collection } from "firebase/firestore";
 import Gweet from "../components/Gweet";
 import GweetFactory from "../components/GweetFactory";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Home = ({ userObj }) => {
 	const [gweets, setGweets] = useState([]);
@@ -13,12 +14,18 @@ const Home = ({ userObj }) => {
 			collection(dbService, "gweets"),
 			orderBy("createdAt", "desc")
 		);
-		onSnapshot(q, (snapshot) => {
+		const unsubscribe = onSnapshot(q, (snapshot) => {
 			const gweetArr = snapshot.docs.map((doc) => ({
 				id: doc.id,
 				...doc.data(),
 			}));
 			setGweets(gweetArr);
+		});
+
+		onAuthStateChanged(auth, (user) => {
+			if (user === null) {
+				unsubscribe();
+			}
 		});
 	}, []);
 	return (
